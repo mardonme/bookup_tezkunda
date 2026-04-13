@@ -1,137 +1,23 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bookup.uz — Tez kunda</title>
-  <meta name="description" content="Bookup.uz — onlayn kitob do‘koni va o‘quv platformasi. TEZ KUNDA ishga tushadi." />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --main:#1c1c1c;
-      --main-blue:#15477A;
-      --blue-bg:#E8F1FF;
-      --desc1:#7D7D7D;
-      --category:#555555;
-      --white:#ffffff;
-      --rating:#FF5722;
-      --red:#E53935;
-      --blue-desc:#4A90E2;
-      --blue2:#1F5BAF;
-      --bg:#0b0b0f;
-      --icons:#bdbdbd;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      color:var(--white);
-      background: linear-gradient(120deg, var(--main-blue), var(--blue2), var(--red));
-      font-family:"DM Sans", system-ui, sans-serif;
-      overflow:hidden;
-    }
-
-    /* animated gradient mesh */
-    .mesh{
-      position:fixed; inset:0; pointer-events:none; z-index:-1; filter:blur(60px) saturate(140%);
-      background:
-        radial-gradient(1200px 1200px at 20% 70%, rgba(21,71,122,.35), transparent 60%),
-        radial-gradient(900px 900px at 80% 30%, rgba(31,91,175,.25), transparent 50%),
-        radial-gradient(700px 700px at 50% 50%, rgba(229,57,53,.28), transparent 55%);
-      animation: drift 24s ease-in-out infinite alternate;
-    }
-    @keyframes drift{ from{transform:translate3d(-2%,2%,0) scale(1.02)} to{transform:translate3d(2%,-2%,0) scale(1.05)} }
-
-    /* floating shapes */
-    .floaters{position:fixed; inset:0; overflow:hidden; pointer-events:none; z-index:-1}
-    .circle{position:absolute; width:120px; height:120px; border-radius:50%; background:rgba(255,255,255,.08); animation:floatUp var(--t) linear infinite; left:var(--x)}
-    @keyframes floatUp { from{transform:translateY(120vh) scale(.8); opacity:0} 20%{opacity:.5} to{transform:translateY(-20vh) scale(1.2); opacity:0} }
-
-    .container{position:relative; height:100%; display:grid; place-items:center; padding:24px}
-
-    .card{
-      width:min(880px, 92vw);
-      backdrop-filter:saturate(140%) blur(18px);
-      -webkit-backdrop-filter:saturate(140%) blur(18px);
-      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.12);
-      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 20px 80px rgba(0,0,0,.45);
-      border-radius:28px; padding: clamp(26px, 4vw, 44px);
-      position:relative; overflow:hidden;
-      text-align:center;
-    }
-    .ring{position:absolute; inset:-1px; border-radius:28px; background: radial-gradient(60% 100% at 50% -10%, rgba(21,71,122,.35), transparent 60%); mask:linear-gradient(#000, transparent 60%); pointer-events:none}
-
-    .logo{display:flex; justify-content:center; margin-bottom:20px}
-    .logo img{max-width:260px; height:auto; border-radius:12px; background:var(--white); padding:10px}
-
-    .headline{margin:18px 0 8px; font-family:"Space Grotesk", sans-serif; font-weight:700; font-size:clamp(38px, 6vw, 80px); line-height:1.02; letter-spacing:-.02em; color:var(--white)}
-    .glow{
-      color:#fff;
-      text-shadow:0 0 22px rgba(21,71,122,.45), 0 0 60px rgba(229,57,53,.35);
-      position:relative;
-      display:inline-block;
-    }
-
-    .sub{color:var(--blue-bg); font-size:clamp(14px, 1.8vw, 18px); line-height:1.6; max-width:60ch; margin:0 auto 20px}
-
-    .tags{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:20px 0 28px}
-    .tag{padding:8px 12px; border-radius:999px; border:1px dashed rgba(255,255,255,.3); background:rgba(255,255,255,.08); font-size:13px; color:#fff}
-
-    .cta-row{display:flex; flex-wrap:wrap; justify-content:center; gap:12px; align-items:center}
-    .btn{appearance:none; border:none; cursor:pointer; padding:14px 18px; border-radius:14px; font-weight:600; letter-spacing:.3px; transition:.25s ease; display:inline-flex; align-items:center; gap:10px; text-decoration:none}
-    .btn.primary{background:linear-gradient(90deg, var(--main-blue), var(--blue2)); color:white; box-shadow: 0 10px 30px rgba(21,71,122,.3)}
-    .btn.primary:hover{transform:translateY(-1px); box-shadow:0 16px 40px rgba(31,91,175,.42)}
-    .btn.ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.18)}
-    .btn.ghost:hover{border-color:rgba(255,255,255,.35); transform:translateY(-1px)}
-
-    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(255,255,255,.16), transparent); margin:28px 0}
-
-    .footer{color:var(--icons); font-size:12px; margin-top:10px}
-  </style>
-</head>
-<body>
-  <div class="mesh"></div>
-  <div class="floaters">
-    <div class="circle" style="--x:10%; --t:24s"></div>
-    <div class="circle" style="--x:30%; --t:28s"></div>
-    <div class="circle" style="--x:55%; --t:32s"></div>
-    <div class="circle" style="--x:70%; --t:26s"></div>
-    <div class="circle" style="--x:85%; --t:30s"></div>
-  </div>
-
-  <main class="container">
-    <section class="card">
-      <div class="ring"></div>
-
-      <div class="logo">
-        <img src="./bookuplogo.png" alt="Bookup.uz logo" />
-      </div>
-
-      <h1 class="headline"><span class="glow">TEZ KUNDA...</span></h1>
-      <p class="sub">Kitob xarid qilish, onlayn o‘qish va eshitish – barchasi <strong>Bookup</strong>da. Platforma hozir tayyorlanmoqda. Birinchilardan bo‘lib xabardor bo‘lish uchun obuna bo‘ling.</p>
-
-      <div class="tags">
-        <span class="tag">📚 1280+ kitob</span>
-        <span class="tag">🎧 Audio + eBook</span>
-        <span class="tag">⚡ Tez yetkazib berish</span>
-        <span class="tag">🛍️ Do‘konlar uchun ham</span>
-      </div>
-
-      <div class="cta-row">
-        <a class="btn primary" href="https://t.me/bookup_uzz" target="_blank" rel="noopener">Obuna bo‘lish</a>
-        <a class="btn ghost" href="https://t.me/bookup_uzz" target="_blank" rel="noopener">Telegram yangiliklar</a>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="footer">© <span id="yil"></span> Bookup.uz. Barcha huquqlar himoyalangan.</div>
-    </section>
-  </main>
-
-  <script>
-    document.getElementById('yil').textContent = new Date().getFullYear();
-  </script>
-</body>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta
+      name="description"
+      content="Bookup — a curated Telegram channel for books that change the way you think."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+    />
+    <title>Bookup — Discover Books That Change Your Mind</title>
+  </head>
+  <body class="bg-ink-800 text-white antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
